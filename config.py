@@ -1,4 +1,5 @@
 import toml
+import os
 
 
 class AttrDict(dict):
@@ -8,3 +9,4 @@ class AttrDict(dict):
 
 
 config = toml.load('config.toml', AttrDict)
+config.telegram.token = os.environ['telegramtoken']
