@@ -164,7 +164,8 @@ def on_first_sticker_receive(update: Update, context: CallbackContext):
 
         return ConversationHandler.END
 
-    full_name = '{}_by_{}'.format(name, context.bot.username)
+    # full_name = '{}_by_{}'.format(name, context.bot.username)
+    full_name = '{}'.format(name)
 
     user_emojis = context.user_data['pack'].pop('emojis', None)  # we also remove them
     sticker = StickerFile(

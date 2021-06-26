@@ -3,7 +3,7 @@
 *.pyc
 *.sqlite
 config.ini
-config.toml
+!config.toml
 *.db
 *.log
 *.log.*
@@ -16,3 +16,4 @@ venv/
 data.pickle
 *.session
 *.session-journal
+Virtualenv/
