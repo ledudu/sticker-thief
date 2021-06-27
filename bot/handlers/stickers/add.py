@@ -87,7 +87,8 @@ def on_pack_title(update: Update, context: CallbackContext):
         return Status.ADD_WAITING_NAME  # we now have to wait for the user to tap on a pack name
 
     logger.info('there is only one pack with the selected title (animated: %s), proceeding...', pack_animated)
-    pack_name = '{}_by_{}'.format(pack_names[0], context.bot.username)
+    # pack_name = '{}_by_{}'.format(pack_names[0], context.bot.username)
+    pack_name = '{}'.format(pack_names[0])
 
     context.user_data['pack'] = dict(name=pack_name, animated=pack_animated)
     pack_link = utils.name2link(pack_name)
@@ -117,7 +118,8 @@ def on_pack_name(update: Update, context: CallbackContext):
         return Status.ADD_WAITING_TITLE
 
     # the buttons list has the name without "_by_botusername"
-    selected_name = '{}_by_{}'.format(update.message.text, context.bot.username)
+    # selected_name = '{}_by_{}'.format(update.message.text, context.bot.username)
+    selected_name = '{}'.format(update.message.text)
 
     with session_scope() as session:
         pack = session.query(Pack).filter_by(name=selected_name, user_id=update.effective_user.id).first()
