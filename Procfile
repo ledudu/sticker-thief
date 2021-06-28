@@ -1,1 +1,2 @@
-worker: python simpleBot.py
+web: python simpleBot.py
+worker: python main.py
