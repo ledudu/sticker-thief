@@ -1,5 +1,6 @@
 import logging
 import re
+import datetime
 
 # noinspection PyPackageRequirements
 from telegram.error import BadRequest
@@ -198,15 +199,17 @@ def on_first_sticker_receive(update: Update, context: CallbackContext):
         return Status.CREATE_WAITING_NAME  # do not continue, wait for another name
     except error.InvalidAnimatedSticker as e:
         logger.error('Telegram error while creating animated pack: %s', e.message)
-        update.message.reply_html(Strings.ADD_STICKER_INVALID_ANIMATED, quote=True, disable_web_page_preview=True)
+        update.message.reply_html(Strings.ADD_STICKER_INVALID_ANIMATED, quote=True)
 
         return Status.CREATE_WAITING_FIRST_STICKER
     except error.FloodControlExceeded as e:
-        logger.error('Telegram error while creating animated pack: %s', e.message)
-        retry_in = re.search(r'retry in (\d+) seconds', e.message, re.I).group(1)  # Retry in 8 seconds
-        text = Strings.ADD_STICKER_FLOOD_EXCEPTION.format(retry_in)
+        logger.error('Telegram error while creating pack: %s', e.message)
+        retry_in = re.search(r'retry in (\d+)(?:\.\d*)? seconds', e.message, re.I).group(1)  # Retry in 8 seconds
 
-        update.message.reply_html(text, quote=True, disable_web_page_preview=True)
+        retry_in_pretty = str(datetime.timedelta(seconds=int(retry_in)))
+        text = Strings.ADD_STICKER_FLOOD_EXCEPTION.format(retry_in_pretty)
+
+        update.message.reply_html(text, quote=True)
 
         return ConversationHandler.END  # do not continue, end the conversation
     except error.UnknwonError as e:

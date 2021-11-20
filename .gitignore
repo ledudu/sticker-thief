@@ -13,7 +13,7 @@ config.ini
 .idea/
 *.zip
 venv/
-data.pickle
+*.pickle
 *.session
 *.session-journal
 Virtualenv/

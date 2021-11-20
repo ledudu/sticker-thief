@@ -135,8 +135,8 @@ class Strings:
     ADD_STICKER_SUCCESS = ("Sticker added to <a href=\"{}\">this pack</a>. "
                            "Continue to send me stickers to add more, use /done when you're done")
 
-    ADD_STICKER_SUCCESS_USER_EMOJIS = ("Sticker added to <a href=\"{}\">this pack</a> using these emojis: {}\n"
-                                       "Continue to send me stickers to add more, use /done when you're done")
+    ADD_STICKER_SUCCESS_EMOJIS = ("Sticker added to <a href=\"{}\">this pack</a> using these emojis: {}\n"
+                                  "Continue to send me stickers to add more, use /done when you're done")
 
     ADD_STICKER_PACK_FULL = ("I'm sorry, <a href=\"{}\">this pack</a> is full ({} stickers), "
                              "you can no longer add stickers to it. Use /remove to remove some stickers\n"
@@ -152,8 +152,9 @@ class Strings:
                                     "You can try to send the sticker again or "
                                     "send another animated sticker (or /cancel)")
 
-    ADD_STICKER_FLOOD_EXCEPTION = ("Uh-oh, it looks like I'm quite busy right now, I cannot create the pack. "
-                                   "Please try again in {} seconds")
+    ADD_STICKER_FLOOD_EXCEPTION = ("Uh-oh, it looks like I'm quite busy right now. I cannot create the pack, or "
+                                   "you've been creating too many packs lately. "
+                                   "Please try again in: {} hours")
 
     ADD_STICKER_GENERIC_ERROR = ("An error occurred while adding this sticker to <a href=\"{}\">this pack</a>: "
                                  "<code>{}</code>.\n"

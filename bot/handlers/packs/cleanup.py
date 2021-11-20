@@ -1,7 +1,7 @@
 import logging
 
 # noinspection PyPackageRequirements
-from telegram.ext import CommandHandler, CallbackContext, ConversationHandler, run_async
+from telegram.ext import CommandHandler, CallbackContext, ConversationHandler
 # noinspection PyPackageRequirements
 from telegram import ChatAction, Update, TelegramError
 
@@ -15,7 +15,6 @@ from bot.strings import Strings
 logger = logging.getLogger(__name__)
 
 
-@run_async
 @decorators.action(ChatAction.TYPING)
 @decorators.restricted
 @decorators.failwithmessage
@@ -37,13 +36,8 @@ def on_cleanup_command(update: Update, context: CallbackContext):
     for pack in packs:
         logger.debug('checking pack: %s', pack[1])
 
-        request_payload = dict(
-            user_id=update.effective_user.id,
-            name=pack[1]
-        )
-
         try:
-            context.bot.get_sticker_set(**request_payload)
+            context.bot.get_sticker_set(name=pack[1])
         except TelegramError as telegram_error:
             if telegram_error.message == 'Stickerset_invalid':
                 logger.debug('this pack will be removed from the db (%s)', telegram_error.message)
@@ -69,4 +63,4 @@ def on_cleanup_command(update: Update, context: CallbackContext):
     return ConversationHandler.END  # /cleanup should end whatever conversation the user was having
 
 
-stickersbot.add_handler(CommandHandler(['cleanup', 'cu'], on_cleanup_command))
+stickersbot.add_handler(CommandHandler(['cleanup', 'cu'], on_cleanup_command, run_async=True))
